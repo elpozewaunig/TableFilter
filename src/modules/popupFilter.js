@@ -31,6 +31,12 @@ export class PopupFilter extends Feature {
         this.closeOnFiltering = defaultsBool(f.close_on_filtering, true);
 
         /**
+        * Css class assigned to the filter icon
+        * @type {String}
+        */
+        this.iconCssClass = defaultsStr(f.span_css_class, 'popUpIcon');
+
+        /**
          * Filter icon path
          * @type {String}
          */
@@ -48,7 +54,15 @@ export class PopupFilter extends Feature {
          * @type {string}
          */
         this.iconHtml = defaultsStr(f.image_html,
-            '<img src="' + this.iconPath + '" alt="Column filter" />');
+            '<img class="' + this.iconCssClass + '" src="' +
+            this.iconPath + '" alt="Column filter" />');
+
+        /**
+        * Css class assigned to the span around the filter icon
+        * @type {String}
+        */
+        this.spanCssClass = defaultsStr(f.span_css_class, 'popUpIconSpan');
+
 
         /**
          * Css class assigned to the popup container element
@@ -252,7 +266,8 @@ export class PopupFilter extends Feature {
 
         tf.eachCol(
             (i) => {
-                let icon = createElm('span', ['ci', i]);
+                let icon = createElm('span',
+                    ['class', this.spanCssClass], ['ci', i]);
                 icon.innerHTML = this.iconHtml;
                 let header = tf.getHeaderElement(i);
                 header.appendChild(icon);

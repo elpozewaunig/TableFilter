@@ -37,6 +37,20 @@ export class PopupFilter extends Feature {
         this.iconCssClass = defaultsStr(f.span_css_class, 'popUpIcon');
 
         /**
+        * Css class assigned to the filter icon when it is active
+        * @type {String}
+        */
+        this.iconActiveCssClass = defaultsStr(f.span_css_class,
+            this.iconCssClass + ' active');
+
+        /**
+        * Css class assigned to the filter icon when it is inactive
+        * @type {String}
+        */
+        this.iconInactiveCssClass = defaultsStr(f.span_css_class,
+            this.iconCssClass + ' inactive');
+
+        /**
          * Filter icon path
          * @type {String}
          */
@@ -54,7 +68,7 @@ export class PopupFilter extends Feature {
          * @type {string}
          */
         this.iconHtml = defaultsStr(f.image_html,
-            '<img class="' + this.iconCssClass + '" src="' +
+            '<img class="' + this.iconInactiveCssClass + '" src="' +
             this.iconPath + '" alt="Column filter" />');
 
         /**
@@ -416,6 +430,8 @@ export class PopupFilter extends Feature {
         let icon = this.fltIcons[colIndex];
         if (icon) {
             icon.src = active ? this.activeIconPath : this.iconPath;
+            icon.className = active ?
+                this.iconActiveCssClass : this.iconInactiveCssClass;
         }
     }
 
